@@ -1,7 +1,10 @@
 package com.example.recyclerviewdemo;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +19,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import java.util.ArrayList;
 
 import Adapter.AdapterClass;
+import Classes.RecyclerViewItemClickListener;
 import Model.ModelRecipe;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,5 +64,28 @@ public class MainActivity extends AppCompatActivity {
 //        StaggeredGridLayoutManager staggeredGridLayoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL);
 //        recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
+          recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this, recyclerView, new RecyclerViewItemClickListener.OnItemClickListener() {
+              @Override
+              public void onItemClick(View view, int position) {
+                  switch(position)
+                  {
+                      case 0:
+                        Intent i=new Intent(MainActivity.this,ScrollingActivity.class);
+                        startActivity(i);
+                        break;
+                  }
+              }
+
+              @Override
+              public void onLongItemClick(View view, int position) {
+                    switch(position)
+                    {
+                        case 0:
+                            Toast toast=Toast.makeText(MainActivity.this,"ButterNun",Toast.LENGTH_SHORT);
+                            toast.show();
+                            break;
+                    }
+              }
+          }));
     }
 }
